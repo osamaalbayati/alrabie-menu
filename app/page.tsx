@@ -1,30 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import {
-  FiChevronLeft,
-  FiClock,
-  FiInstagram,
-  FiMapPin,
-  FiMenu,
-  FiMessageCircle,
-  FiMinus,
-  FiPlus,
-  FiSearch,
-  FiShoppingBag,
-  FiStar,
-  FiTrash2,
-  FiX,
-} from "react-icons/fi";
 
-type CategoryKey = "breakfast" | "manakish" | "pizza" | "mashawi" | "kunafa" | "dairy";
+type CategoryKey =
+  | "breakfast"
+  | "manakish"
+  | "pizza"
+  | "mashawi"
+  | "kunafa"
+  | "dairy";
 
 type Product = {
   id: number;
   name: string;
   price: number;
-  image: string;
   category: CategoryKey;
   badge?: string;
   description?: string;
@@ -51,107 +40,23 @@ const categories: {
 ];
 
 const products: Product[] = [
-  {
-    id: 1,
-    name: "فطور الربيع",
-    price: 10000,
-    image: "/image/breakfast.jpg",
-    category: "breakfast",
-    badge: "مميز",
-    description: "تشكلية فطور صباحي فخمة ومتكاملة.",
-  },
-  {
-    id: 2,
-    name: "فطور شرقي فاخر",
-    price: 15000,
-    image: "/image/breakfast2.jpg",
-    category: "breakfast",
-    description: "خيار غني ومناسب للبداية القوية.",
-  },
-  {
-    id: 3,
-    name: "مناقيش زعتر",
-    price: 3500,
-    image: "/image/manqish.jpg",
-    category: "manakish",
-    badge: "الأكثر طلبًا",
-    description: "طازجة، خفيفة، ومحبوبة دائمًا.",
-  },
-  {
-    id: 4,
-    name: "مناقيش جبن",
-    price: 4500,
-    image: "/image/manqish2.jpg",
-    category: "manakish",
-    description: "جبن ذائب بطبقة ذهبية جميلة.",
-  },
-  {
-    id: 5,
-    name: "بيتزا مشكلة",
-    price: 8000,
-    image: "/image/pizza.jpg",
-    category: "pizza",
-    badge: "جديد",
-    description: "مذاق متوازن ومشهي جدًا.",
-  },
-  {
-    id: 6,
-    name: "بيتزا دجاج",
-    price: 9000,
-    image: "/image/pizza2.jpg",
-    category: "pizza",
-    description: "دجاج طري مع جبن غني.",
-  },
-  {
-    id: 7,
-    name: "مشاوي الضيعة",
-    price: 18000,
-    image: "/image/mashwai.jpg",
-    category: "mashawi",
-    badge: "مفضل",
-    description: "شوي فاخر ولمسة عراقية أصيلة.",
-  },
-  {
-    id: 8,
-    name: "مشاوي مشكلة",
-    price: 22000,
-    image: "/image/mashwai2.jpg",
-    category: "mashawi",
-    description: "صحن مشاوي غني مناسب للمشاركة.",
-  },
-  {
-    id: 9,
-    name: "كنافة حمد",
-    price: 5000,
-    image: "/image/kanafa.jpg",
-    category: "kunafa",
-    badge: "خاص",
-    description: "حلا ساخن ولمسة فخمة ومشبعة.",
-  },
-  {
-    id: 10,
-    name: "كنافة بالقشطة",
-    price: 7000,
-    image: "/image/kanafa2.jpg",
-    category: "kunafa",
-    description: "كريمة ناعمة وطعم غني جدًا.",
-  },
-  {
-    id: 11,
-    name: "لبن ربيع",
-    price: 2500,
-    image: "/image/main.jpg",
-    category: "dairy",
-    description: "منعش وخفيف ولطيف على المائدة.",
-  },
-  {
-    id: 12,
-    name: "لبنة ربيع",
-    price: 3000,
-    image: "/image/main.jpg",
-    category: "dairy",
-    description: "قوام ناعم ومذاق نظيف ومميز.",
-  },
+  { id: 1, name: "فطور الربيع", price: 10000, category: "breakfast", badge: "مميز", description: "فطور صباحي فاخر ومتكامل." },
+  { id: 2, name: "فطور شرقي", price: 15000, category: "breakfast", description: "خيار غني ومناسب للبداية القوية." },
+
+  { id: 3, name: "مناقيش زعتر", price: 3500, category: "manakish", badge: "الأكثر طلبًا", description: "خفيفة وطازجة دائمًا." },
+  { id: 4, name: "مناقيش جبن", price: 4500, category: "manakish", description: "جبن ذائب بطبقة ذهبية." },
+
+  { id: 5, name: "بيتزا مشكلة", price: 8000, category: "pizza", badge: "جديد", description: "مذاق متوازن ومشهي." },
+  { id: 6, name: "بيتزا دجاج", price: 9000, category: "pizza", description: "دجاج طري مع جبن غني." },
+
+  { id: 7, name: "مشاوي الضيعة", price: 18000, category: "mashawi", badge: "مفضل", description: "شوي فاخر بطابع عراقي." },
+  { id: 8, name: "مشاوي مشكلة", price: 22000, category: "mashawi", description: "صحن غني مناسب للمشاركة." },
+
+  { id: 9, name: "كنافة حمد", price: 5000, category: "kunafa", badge: "خاص", description: "حلا ساخن بطابع فاخر." },
+  { id: 10, name: "كنافة بالقشطة", price: 7000, category: "kunafa", description: "كريمة ناعمة وطعم غني." },
+
+  { id: 11, name: "لبن ربيع", price: 2500, category: "dairy", description: "منعش وخفيف." },
+  { id: 12, name: "لبنة ربيع", price: 3000, category: "dairy", description: "قوام ناعم ومميز." },
 ];
 
 const heroSlides = [
@@ -159,16 +64,19 @@ const heroSlides = [
     title: "منيو فاخر بطابع عربي",
     subtitle: "الربيع يقدم تجربة طلب حديثة، مرتبة، وسهلة من الموبايل.",
     image: "/image/main.jpg",
+    accent: "from-green-900/70 via-black/40 to-black/90",
   },
   {
-    title: "فطور، مناقيش، وبيتزا",
+    title: "فطور ومناقيش ساخنة",
     subtitle: "كل قسم مرتب بشكل أنيق حتى الزبون يطلب بسرعة بدون تشتت.",
     image: "/image/breakfast.jpg",
+    accent: "from-emerald-900/60 via-black/35 to-black/90",
   },
   {
-    title: "مشاوي وكنافة بطابع Premium",
+    title: "مشاوي وكنافة Premium",
     subtitle: "هوية داكنة، لمسة خضراء، وحركة ناعمة تعطيك شكل عالمي.",
     image: "/image/mashwai.jpg",
+    accent: "from-lime-900/50 via-black/35 to-black/90",
   },
 ];
 
@@ -178,27 +86,27 @@ const offers = [
     desc: "ابدأ يومك بصحن أنيق ومتكامل.",
     price: "ابتداءً من 10,000 د.ع",
     targetId: "breakfast" as CategoryKey,
-    image: "/image/breakfast.jpg",
   },
   {
     title: "عرض البيتزا العائلية",
     desc: "مذاق غني ومناسب للمشاركة.",
     price: "ابتداءً من 8,000 د.ع",
     targetId: "pizza" as CategoryKey,
-    image: "/image/pizza.jpg",
   },
   {
     title: "عرض الكنافة الخاص",
     desc: "حلا فاخر مع تقديم مميز.",
     price: "ابتداءً من 5,000 د.ع",
     targetId: "kunafa" as CategoryKey,
-    image: "/image/kanafa.jpg",
   },
 ];
 
 function scrollToId(id: string) {
-  const el = document.getElementById(id);
-  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function formatPrice(value: number) {
+  return value.toLocaleString("en-US");
 }
 
 export default function Home() {
@@ -206,13 +114,13 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [note, setNote] = useState("");
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<CategoryKey | "all">("all");
+  const [heroIndex, setHeroIndex] = useState(0);
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<CategoryKey | "all">("all");
+  const [note, setNote] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -223,52 +131,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMobileMenuOpen(false);
-        setCartDrawerOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow =
-      mobileMenuOpen || cartDrawerOpen ? "hidden" : "auto";
-
+    document.body.style.overflow = mobileMenuOpen || cartDrawerOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [mobileMenuOpen, cartDrawerOpen]);
-
-  useEffect(() => {
-    const sections = categories
-      .map((category) => document.getElementById(category.key))
-      .filter(Boolean) as HTMLElement[];
-
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible?.target?.id) {
-          setActiveCategory(visible.target.id as CategoryKey);
-        }
-      },
-      {
-        root: null,
-        threshold: 0.35,
-      }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, [search, filter]);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -278,7 +145,7 @@ export default function Home() {
     });
   }, [search, filter]);
 
-  const visibleSections = useMemo(() => {
+  const groupedSections = useMemo(() => {
     return categories
       .map((category) => ({
         ...category,
@@ -343,11 +210,11 @@ export default function Home() {
     const itemsText = cart
       .map(
         (item) =>
-          `• ${item.name} × ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} د.ع`
+          `• ${item.name} × ${item.quantity} = ${formatPrice(item.price * item.quantity)} د.ع`
       )
       .join("\n");
 
-    const meta = [
+    const customerBlock = [
       customerName ? `الاسم: ${customerName}` : "",
       customerPhone ? `الرقم: ${customerPhone}` : "",
       customerAddress ? `العنوان: ${customerAddress}` : "",
@@ -362,25 +229,25 @@ export default function Home() {
 
 ${itemsText}
 
-المجموع الكلي: ${total.toLocaleString()} د.ع
+المجموع الكلي: ${formatPrice(total)} د.ع
 
-${meta ? `${meta}\n` : ""}شكراً لكم`;
+${customerBlock ? `${customerBlock}\n` : ""}شكراً لكم`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <main dir="rtl" lang="ar" className="min-h-screen bg-[#050505] text-white">
+    <main dir="rtl" lang="ar" className="min-h-screen bg-[#050505] text-white scroll-smooth">
       {/* NAVBAR */}
-      <header className="navbar-blur fixed top-0 z-50 w-full">
+      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/65 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
           <button
             onClick={() => scrollToId("hero")}
             className="flex items-center gap-3 text-right"
           >
-            <div className="green-glow flex h-11 w-11 items-center justify-center rounded-2xl bg-green-500/15 text-green-400">
-              <FiChevronLeft className="text-2xl" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-green-500/20 bg-green-500/10 text-green-400 shadow-[0_0_25px_rgba(34,197,94,0.18)]">
+              ↗
             </div>
             <div>
               <h1 className="text-lg font-black leading-5 md:text-2xl">الربيع</h1>
@@ -413,15 +280,15 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
               className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 md:hidden"
               aria-label="Open menu"
             >
-              <FiMenu className="text-xl" />
+              ☰
             </button>
 
             <button
               onClick={() => setCartDrawerOpen(true)}
-              className="relative rounded-full bg-green-600 px-4 py-3 text-sm font-bold btn-premium"
+              className="relative rounded-full bg-green-600 px-4 py-3 text-sm font-bold transition hover:-translate-y-0.5 hover:bg-green-500"
             >
               <span className="flex items-center gap-2">
-                <FiShoppingBag />
+                🛒
                 <span className="hidden sm:inline">السلة</span>
               </span>
 
@@ -464,7 +331,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
           onClick={() => setMobileMenuOpen(false)}
         >
           <aside
-            className="glass absolute right-0 top-0 h-full w-[92vw] max-w-sm p-5 text-right transition-all duration-300"
+            className="absolute right-0 top-0 h-full w-[92vw] max-w-sm border-l border-white/10 bg-[#0b0b0b] p-5 text-right shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6 flex items-center justify-between">
@@ -473,7 +340,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5"
               >
-                <FiX className="text-2xl" />
+                ✕
               </button>
             </div>
 
@@ -496,7 +363,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                     <span className="block text-lg font-bold">{category.labelAr}</span>
                     <span className="block text-xs text-gray-300">{category.short}</span>
                   </span>
-                  <FiChevronLeft />
+                  <span className="text-lg">‹</span>
                 </button>
               ))}
             </div>
@@ -516,7 +383,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
           onClick={() => setCartDrawerOpen(false)}
         >
           <aside
-            className="glass absolute top-0 h-full w-[94vw] max-w-md overflow-hidden text-right transition-all duration-300 md:w-[420px]"
+            className="absolute left-0 top-0 h-full w-[94vw] max-w-md overflow-hidden border-r border-white/10 bg-[#0b0b0b] text-right shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex h-full flex-col">
@@ -531,14 +398,16 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                   onClick={() => setCartDrawerOpen(false)}
                   className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5"
                 >
-                  <FiX className="text-2xl" />
+                  ✕
                 </button>
               </div>
 
               <div className="flex-1 overflow-y-auto p-5">
                 {cart.length === 0 ? (
-                  <div className="glass rounded-[28px] p-8 text-center text-gray-400">
-                    <FiShoppingBag className="mx-auto mb-4 text-4xl text-green-400" />
+                  <div className="rounded-[28px] border border-white/10 bg-white/5 p-8 text-center text-gray-400">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-500/10 text-2xl text-green-400">
+                      🛒
+                    </div>
                     السلة فارغة حاليًا
                   </div>
                 ) : (
@@ -546,49 +415,65 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                     {cart.map((item) => (
                       <div
                         key={item.id}
-                        className="glass flex flex-col gap-4 rounded-[28px] p-4 md:flex-row md:items-center md:justify-between"
+                        className="rounded-[28px] border border-white/10 bg-white/5 p-4"
                       >
-                        <div className="flex items-center gap-4">
-                          <div className="relative h-20 w-20 overflow-hidden rounded-2xl">
-                            <Image src={item.image} alt={item.name} fill className="object-cover" />
+                        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              {item.badge && (
+                                <span className="inline-flex rounded-full bg-green-600 px-3 py-1 text-xs font-bold">
+                                  {item.badge}
+                                </span>
+                              )}
+                            </div>
+
+                            <h5 className="mt-3 text-xl font-black leading-tight">
+                              {item.name}
+                            </h5>
+
+                            <p className="mt-2 text-sm text-gray-400">
+                              {item.description}
+                            </p>
+
+                            <p className="mt-2 text-sm font-semibold text-green-400">
+                              {formatPrice(item.price)} د.ع
+                            </p>
                           </div>
 
-                          <div>
-                            <h5 className="text-xl font-black">{item.name}</h5>
-                            <p className="mt-1 text-sm text-green-400">
-                              {item.price.toLocaleString()} د.ع
-                            </p>
-                            <p className="mt-1 text-xs text-gray-400">
-                              المجموع: {(item.price * item.quantity).toLocaleString()} د.ع
-                            </p>
+                          <div className="flex items-center justify-between gap-3 md:justify-end">
+                            <div className="flex items-center gap-2 rounded-2xl bg-black/30 p-2">
+                              <button
+                                onClick={() => decrease(item.id)}
+                                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition hover:bg-white/15"
+                              >
+                                −
+                              </button>
+                              <span className="min-w-8 text-center text-lg font-black">
+                                {item.quantity}
+                              </span>
+                              <button
+                                onClick={() => increase(item.id)}
+                                className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition hover:bg-white/15"
+                              >
+                                +
+                              </button>
+                            </div>
+
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-500/15 text-red-400 transition hover:bg-red-500/25"
+                              aria-label="Remove item"
+                            >
+                              🗑
+                            </button>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between gap-3 md:justify-end">
-                          <div className="flex items-center gap-2 rounded-2xl bg-white/5 p-2">
-                            <button
-                              onClick={() => decrease(item.id)}
-                              className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition hover:bg-white/15"
-                            >
-                              <FiMinus />
-                            </button>
-                            <span className="min-w-8 text-center text-lg font-black">
-                              {item.quantity}
-                            </span>
-                            <button
-                              onClick={() => increase(item.id)}
-                              className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition hover:bg-white/15"
-                            >
-                              <FiPlus />
-                            </button>
-                          </div>
-
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-500/15 text-red-400 transition hover:bg-red-500/25"
-                          >
-                            <FiTrash2 />
-                          </button>
+                        <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4 text-sm">
+                          <span className="text-gray-300">المجموع الجزئي</span>
+                          <span className="font-black text-green-400">
+                            {formatPrice(item.price * item.quantity)} د.ع
+                          </span>
                         </div>
                       </div>
                     ))}
@@ -596,7 +481,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                 )}
 
                 <div className="mt-5 space-y-4">
-                  <div className="glass rounded-[28px] p-5">
+                  <div className="rounded-[28px] border border-white/10 bg-white/5 p-5">
                     <h4 className="mb-4 text-2xl font-black">بيانات الطلب</h4>
 
                     <div className="space-y-3">
@@ -604,43 +489,42 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="الاسم"
-                        className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
+                        className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
                       />
                       <input
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
                         placeholder="رقم الهاتف"
-                        className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
+                        className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
                       />
                       <input
                         value={customerAddress}
                         onChange={(e) => setCustomerAddress(e.target.value)}
                         placeholder="العنوان"
-                        className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
+                        className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
                       />
                       <textarea
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
                         placeholder="ملاحظات الطلب"
                         rows={4}
-                        className="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
+                        className="w-full resize-none rounded-2xl border border-white/10 bg-black/30 px-4 py-4 outline-none transition placeholder:text-gray-500 focus:border-green-500"
                       />
                     </div>
                   </div>
 
-                  <div className="glass rounded-[28px] p-5">
+                  <div className="rounded-[28px] border border-white/10 bg-white/5 p-5">
                     <div className="flex items-center justify-between">
                       <span className="text-lg text-gray-300">المجموع الكلي</span>
                       <span className="text-3xl font-black text-green-400">
-                        {total.toLocaleString()} د.ع
+                        {formatPrice(total)} د.ع
                       </span>
                     </div>
 
                     <button
                       onClick={sendWhatsApp}
-                      className="btn-premium mt-5 flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-4 text-lg font-black"
+                      className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-green-600 px-5 py-4 text-lg font-black transition hover:bg-green-500"
                     >
-                      <FiMessageCircle />
                       إرسال الطلب عبر واتساب
                     </button>
                   </div>
@@ -653,35 +537,23 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
 
       {/* HERO */}
       <section id="hero" className="relative min-h-screen overflow-hidden pt-28 md:pt-24">
-        {heroSlides.map((slide, index) => (
-          <div
-            key={slide.title}
-            className={`absolute inset-0 transition-all duration-700 ${
-              index === heroIndex ? "opacity-100 scale-100" : "pointer-events-none opacity-0 scale-105"
-            }`}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title}
-              fill
-              priority={index === 0}
-              className="object-cover"
-              sizes="100vw"
-            />
-          </div>
-        ))}
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+          style={{
+            backgroundImage: `linear-gradient(to top, ${heroSlides[heroIndex].accent}, rgba(0,0,0,0.15)), url('/image/main.jpg')`,
+          }}
+        />
 
-        <div className="hero-overlay absolute inset-0" />
+        <div className="absolute inset-0 bg-black/20" />
 
         <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-20 md:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="text-right">
-              <p className="glass mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-gray-200">
-                <FiClock className="text-green-400" />
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200 backdrop-blur">
                 طلبات سريعة عبر واتساب
               </p>
 
-              <h2 className="section-title text-gradient mb-8 block text-right text-6xl font-black leading-tight md:text-8xl">
+              <h2 className="mb-8 block text-right text-5xl font-black leading-tight md:text-7xl">
                 الربيع
               </h2>
 
@@ -696,14 +568,14 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
               <div className="mt-10 flex flex-wrap gap-4">
                 <button
                   onClick={() => scrollToId("offers")}
-                  className="btn-premium rounded-full px-7 py-4 text-lg font-bold"
+                  className="rounded-full bg-green-600 px-7 py-4 text-lg font-bold transition hover:-translate-y-0.5 hover:bg-green-500"
                 >
                   العروض المميزة
                 </button>
 
                 <button
                   onClick={sendWhatsApp}
-                  className="glass rounded-full border border-white/10 px-7 py-4 text-lg font-bold text-white transition hover:bg-white/10"
+                  className="rounded-full border border-white/15 bg-white/5 px-7 py-4 text-lg font-bold text-white transition hover:bg-white/10"
                 >
                   اطلب الآن عبر واتساب
                 </button>
@@ -717,7 +589,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
                       setActiveCategory(category.key);
                       scrollToId(category.key);
                     }}
-                    className="glass rounded-3xl border border-white/10 p-4 text-right transition hover:-translate-y-1 hover:bg-white/10"
+                    className="rounded-3xl border border-white/10 bg-white/5 p-4 text-right transition hover:-translate-y-1 hover:bg-white/10"
                   >
                     <span className="block text-sm text-gray-400">{category.labelEn}</span>
                     <span className="mt-1 block text-lg font-black">{category.labelAr}</span>
@@ -728,16 +600,15 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
             </div>
 
             <div className="hidden lg:block">
-              <div className="glass card-premium overflow-hidden rounded-[36px] p-4">
+              <div className="overflow-hidden rounded-[36px] border border-white/10 bg-white/5 p-4 backdrop-blur">
                 <div className="relative h-[540px] overflow-hidden rounded-[28px]">
-                  <Image
-                    src={heroSlides[heroIndex].image}
-                    alt="Hero preview"
-                    fill
-                    className="object-cover image-hover"
-                    sizes="50vw"
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+                    style={{
+                      backgroundImage: `url('${heroSlides[heroIndex].image}')`,
+                    }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${heroSlides[heroIndex].accent}`} />
 
                   <div className="absolute bottom-6 right-6 left-6">
                     <div className="flex flex-wrap gap-3">
@@ -773,14 +644,13 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
         </div>
       </section>
 
-      {/* FEATURED OFFERS */}
+      {/* OFFERS */}
       <section id="offers" className="mx-auto max-w-7xl px-4 py-14 md:px-6">
         <div className="mb-10 text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-green-500/10 px-4 py-2 text-sm font-bold text-green-400">
-            <FiStar />
-            أفضل العروض
+            ★ أفضل العروض
           </span>
-          <h3 className="section-title text-gradient inline-block">العروض المميزة</h3>
+          <h3 className="inline-block text-4xl font-black md:text-5xl">العروض المميزة</h3>
           <p className="mx-auto mt-8 max-w-2xl text-gray-400">
             قسم سريع للطلبات الأكثر جذبًا، مصمم بشكل فاخر حتى يركز الزبون على الأقوى.
           </p>
@@ -788,36 +658,22 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
 
         <div className="grid gap-6 md:grid-cols-3">
           {offers.map((offer) => (
-            <div key={offer.title} className="card-premium overflow-hidden rounded-[32px]">
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  fill
-                  className="object-cover image-hover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                <div className="absolute right-4 top-4">
-                  <span className="rounded-full bg-green-600 px-3 py-2 text-xs font-bold">
-                    عرض
-                  </span>
-                </div>
-              </div>
+            <div key={offer.title} className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-right backdrop-blur">
+              <span className="inline-flex rounded-full bg-green-600 px-3 py-2 text-xs font-bold">
+                عرض
+              </span>
 
-              <div className="p-6 text-right">
-                <h4 className="text-2xl font-black">{offer.title}</h4>
-                <p className="mt-3 text-sm leading-7 text-gray-400">{offer.desc}</p>
+              <h4 className="mt-4 text-2xl font-black">{offer.title}</h4>
+              <p className="mt-3 text-sm leading-7 text-gray-400">{offer.desc}</p>
 
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <span className="text-green-400 font-bold">{offer.price}</span>
-                  <button
-                    onClick={() => scrollToId(offer.targetId)}
-                    className="btn-premium rounded-full px-5 py-3 text-sm font-bold"
-                  >
-                    عرض القسم
-                  </button>
-                </div>
+              <div className="mt-5 flex items-center justify-between gap-3">
+                <span className="font-bold text-green-400">{offer.price}</span>
+                <button
+                  onClick={() => scrollToId(offer.targetId)}
+                  className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold transition hover:bg-green-500"
+                >
+                  عرض القسم
+                </button>
               </div>
             </div>
           ))}
@@ -828,47 +684,32 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
       <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">
         <div className="mb-10 text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-green-500/10 px-4 py-2 text-sm font-bold text-green-400">
-            <FiStar />
-            الأكثر طلبًا
+            ★ الأكثر طلبًا
           </span>
-          <h3 className="section-title text-gradient inline-block">المنتجات المميزة</h3>
+          <h3 className="inline-block text-4xl font-black md:text-5xl">المنتجات المميزة</h3>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
           {featuredProducts.map((product) => (
-            <div key={product.id} className="card-premium overflow-hidden rounded-[32px]">
-              <div className="relative h-60 overflow-hidden">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover image-hover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                <div className="absolute right-4 top-4">
-                  <span className="rounded-full bg-green-600 px-3 py-2 text-xs font-bold">
-                    {product.badge}
-                  </span>
-                </div>
-              </div>
+            <div key={product.id} className="rounded-[28px] border border-white/10 bg-white/5 p-6 text-right backdrop-blur">
+              <span className="inline-flex rounded-full bg-green-600 px-3 py-2 text-xs font-bold">
+                {product.badge}
+              </span>
 
-              <div className="p-6 text-right">
-                <h4 className="text-2xl font-black">{product.name}</h4>
-                <p className="mt-3 text-sm leading-7 text-gray-400">{product.description}</p>
+              <h4 className="mt-4 text-2xl font-black">{product.name}</h4>
+              <p className="mt-3 text-sm leading-7 text-gray-400">{product.description}</p>
 
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-xl font-black text-green-400">
-                    {product.price.toLocaleString()} د.ع
-                  </span>
+              <div className="mt-5 flex items-center justify-between">
+                <span className="text-xl font-black text-green-400">
+                  {formatPrice(product.price)} د.ع
+                </span>
 
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="btn-premium rounded-full px-5 py-3 text-sm font-bold"
-                  >
-                    إضافة للسلة
-                  </button>
-                </div>
+                <button
+                  onClick={() => addToCart(product)}
+                  className="rounded-full bg-green-600 px-5 py-3 text-sm font-bold transition hover:bg-green-500"
+                >
+                  إضافة للسلة
+                </button>
               </div>
             </div>
           ))}
@@ -878,8 +719,8 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
       {/* SEARCH + FILTER */}
       <section className="mx-auto max-w-7xl px-4 py-8 md:px-6">
         <div className="mx-auto max-w-4xl">
-          <div className="glass mb-5 flex items-center gap-3 rounded-[26px] px-5 py-4">
-            <FiSearch className="text-green-400" />
+          <div className="mb-5 flex items-center gap-3 rounded-[26px] border border-white/10 bg-white/5 px-5 py-4 backdrop-blur">
+            <span className="text-green-400">⌕</span>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -914,21 +755,21 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
       </section>
 
       {/* MENU */}
-      <section className="mx-auto max-w-7xl px-4 py-10 md:px-6">
+      <section className="mx-auto max-w-7xl px-4 py-10 pb-32 md:px-6 md:pb-20">
         <div className="mb-12 text-center">
-          <h3 className="section-title text-gradient inline-block">منيو الربيع</h3>
+          <h3 className="inline-block text-4xl font-black md:text-5xl">منيو الربيع</h3>
           <p className="mx-auto mt-8 max-w-2xl text-gray-400">
             كل قسم مرتب بشكل أنيق، وكل صنف قابل للإضافة للسلة وإرساله مباشرة إلى واتساب.
           </p>
         </div>
 
-        {visibleSections.length === 0 ? (
-          <div className="glass rounded-[30px] p-10 text-center text-gray-400">
+        {groupedSections.length === 0 ? (
+          <div className="rounded-[30px] border border-white/10 bg-white/5 p-10 text-center text-gray-400">
             لا توجد نتائج مطابقة للبحث أو الفلتر الحالي.
           </div>
         ) : (
           <div className="space-y-20">
-            {visibleSections.map((categorySection) => (
+            {groupedSections.map((categorySection) => (
               <section
                 key={categorySection.key}
                 id={categorySection.key}
@@ -948,42 +789,41 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
                   {categorySection.items.map((product) => (
-                    <article key={product.id} className="card-premium group overflow-hidden rounded-[34px]">
-                      <div className="relative h-[280px] overflow-hidden">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          className="object-cover image-hover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                        <div className="absolute right-5 top-5 flex gap-2">
+                    <article
+                      key={product.id}
+                      className="rounded-[28px] border border-white/10 bg-white/5 p-5 text-right backdrop-blur transition hover:-translate-y-1 hover:bg-white/10"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
                           {product.badge && (
-                            <span className="rounded-full bg-green-600 px-3 py-2 text-xs font-bold">
+                            <span className="inline-flex rounded-full bg-green-600 px-3 py-1 text-xs font-bold">
                               {product.badge}
                             </span>
                           )}
-                          <span className="rounded-full bg-white/10 px-3 py-2 text-xs font-bold backdrop-blur">
-                            {product.price.toLocaleString()} د.ع
+
+                          <h5 className="mt-3 text-2xl font-black leading-snug">
+                            {product.name}
+                          </h5>
+
+                          <p className="mt-2 text-sm leading-7 text-gray-400">
+                            {product.description ?? "صنف فاخر جاهز للإضافة إلى السلة."}
+                          </p>
+                        </div>
+
+                        <div className="shrink-0 rounded-2xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-center">
+                          <span className="block text-xs text-gray-300">السعر</span>
+                          <span className="block text-lg font-black text-green-400">
+                            {formatPrice(product.price)} د.ع
                           </span>
                         </div>
                       </div>
 
-                      <div className="p-6 text-right">
-                        <h5 className="text-2xl font-black">{product.name}</h5>
-                        <p className="mt-2 text-sm leading-7 text-gray-400">
-                          {product.description ?? "صنف فاخر جاهز للإضافة إلى السلة."}
-                        </p>
-
-                        <button
-                          onClick={() => addToCart(product)}
-                          className="btn-premium mt-6 flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-4 text-lg font-bold"
-                        >
-                          <FiPlus />
-                          إضافة للسلة
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => addToCart(product)}
+                        className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-green-600 px-5 py-4 text-lg font-bold transition hover:bg-green-500"
+                      >
+                        ＋ إضافة للسلة
+                      </button>
                     </article>
                   ))}
                 </div>
@@ -994,7 +834,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
       </section>
 
       {/* FOOTER */}
-      <footer className="footer-premium px-4 py-16 md:px-6">
+      <footer className="border-t border-white/10 bg-black/80 px-4 py-16 md:px-6">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-3">
           <div className="text-right">
             <h5 className="text-4xl font-black">الربيع</h5>
@@ -1005,11 +845,11 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
 
           <div className="space-y-4 text-right">
             <div className="flex items-center gap-3 text-gray-300">
-              <FiMapPin className="text-green-400" />
+              <span className="text-green-400">⌂</span>
               <span>النجف الأشرف - حي السلام - مقابل شقق السلام</span>
             </div>
             <div className="flex items-center gap-3 text-gray-300">
-              <FiClock className="text-green-400" />
+              <span className="text-green-400">⏱</span>
               <span>طلب سريع عبر واتساب</span>
             </div>
           </div>
@@ -1018,38 +858,41 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
             <a
               href="https://instagram.com/al__rabie"
               target="_blank"
+              rel="noreferrer"
               className="flex items-center gap-3 text-gray-300 transition hover:text-white"
             >
-              <FiInstagram className="text-green-400" />
+              <span className="text-green-400">◎</span>
               @al__rabie
             </a>
             <a
               href="https://instagram.com/kanafa.hamad"
               target="_blank"
+              rel="noreferrer"
               className="flex items-center gap-3 text-gray-300 transition hover:text-white"
             >
-              <FiInstagram className="text-green-400" />
+              <span className="text-green-400">◎</span>
               @kanafa.hamad
             </a>
             <a
               href="https://instagram.com/mashawi.aldayea"
               target="_blank"
+              rel="noreferrer"
               className="flex items-center gap-3 text-gray-300 transition hover:text-white"
             >
-              <FiInstagram className="text-green-400" />
+              <span className="text-green-400">◎</span>
               @mashawi.aldayea
             </a>
           </div>
         </div>
       </footer>
 
-      {/* FLOATING QUICK ACTIONS */}
+      {/* FLOATING BUTTONS */}
       <button
         onClick={() => setCartDrawerOpen(true)}
-        className="fixed bottom-5 right-5 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-2xl transition hover:scale-110"
+        className="fixed bottom-20 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-2xl transition hover:scale-110 md:bottom-6 md:right-6"
         aria-label="Open cart"
       >
-        <FiShoppingBag className="text-3xl" />
+        🛒
         {cartCount > 0 && (
           <span className="absolute -left-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-black text-black">
             {cartCount}
@@ -1059,14 +902,14 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
 
       <button
         onClick={sendWhatsApp}
-        className="fixed bottom-5 left-5 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-2xl transition hover:scale-110"
+        className="fixed bottom-20 left-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-green-500 text-white shadow-2xl transition hover:scale-110 md:bottom-6 md:left-6"
         aria-label="WhatsApp order"
       >
-        <FiMessageCircle className="text-3xl" />
+        ☎
       </button>
 
       {/* MOBILE BOTTOM DOCK */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/80 px-3 py-3 backdrop-blur-md md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/85 px-3 py-3 backdrop-blur-md md:hidden">
         <div className="grid grid-cols-4 gap-2">
           <button
             onClick={() => scrollToId("hero")}
@@ -1088,7 +931,7 @@ ${meta ? `${meta}\n` : ""}شكراً لكم`;
           </button>
           <button
             onClick={sendWhatsApp}
-            className="btn-premium rounded-2xl py-3 text-xs font-bold"
+            className="rounded-2xl bg-green-600 py-3 text-xs font-bold"
           >
             واتساب
           </button>
